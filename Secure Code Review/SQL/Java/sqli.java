@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.util.Scanner;
 
-public class SecureLoginApp {
+public class VulnerableLoginApp {
 
     public static void main(String[] args) {
         createDatabase();
@@ -12,6 +12,7 @@ public class SecureLoginApp {
         String url = "jdbc:sqlite:example.db";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
+
             // Create the users table
             String createTableSQL = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)";
             stmt.execute(createTableSQL);
@@ -35,15 +36,15 @@ public class SecureLoginApp {
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
 
-        String loginQuery = "SELECT * FROM users WHERE username = ? AND password = ?";
+        // This query concatenates user input directly, making it vulnerable to SQL injection
+        String loginQuery = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "'";
+
+        System.out.println("Executing query: " + loginQuery);
+
         try (Connection conn = DriverManager.getConnection(url);
-             PreparedStatement pstmt = conn.prepareStatement(loginQuery)) {
+             Statement stmt = conn.createStatement()) {
 
-            // Set parameters to prevent SQL injection
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-
-            ResultSet rs = pstmt.executeQuery();
+            ResultSet rs = stmt.executeQuery(loginQuery);
             if (rs.next()) {
                 System.out.println("Login successful");
             } else {
@@ -54,3 +55,4 @@ public class SecureLoginApp {
         }
     }
 }
+
