@@ -56,3 +56,64 @@ namespace FileDownloadApp.Controllers
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sample Request
+
+If the user requests:
+
+GET /download?filename=example.txt
+
+And the file example.txt exists in the files directory, it will be returned. However, if the user tries something like:
+
+GET /download?filename=../../../../../etc/passwd
+
+The code will return:
+
+400 Bad Request - "Invalid file path."
+
+This ensures that path traversal attacks are effectively mitigated.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
