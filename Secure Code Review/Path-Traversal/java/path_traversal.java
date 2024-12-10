@@ -47,7 +47,7 @@ public class FileDownloadController {
 
 
 
-How is it Vulnerable?
+How this snipped code Vulnerable to path traversal?
 
 This Java implementation suffers from the path traversal vulnerability due to the following issues:
 
