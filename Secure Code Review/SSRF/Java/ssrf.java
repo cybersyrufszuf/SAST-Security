@@ -22,7 +22,7 @@ public class VulnerableSSRFServlet extends HttpServlet {
         }
 
         try {
-            // Directly use the user-provided URL to make a request
+                                                                                                                                            // Directly use the user-provided URL to make a request
             URL url = new URL(targetUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -66,7 +66,7 @@ public class VulnerableSSRFServlet extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-How This Code is Vulnerable
+How This above snipped Code is Vulnerable to SSRF
 
     User-Controlled Input for URL:
         The targetUrl parameter is directly used to make an HTTP request without validation or restrictions.
