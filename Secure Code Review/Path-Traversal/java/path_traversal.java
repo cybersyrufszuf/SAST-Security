@@ -13,7 +13,7 @@ public class FileDownloadController {
 
     @GetMapping("/download")
     public void downloadFile(@RequestParam String filename, HttpServletResponse response) throws IOException {
-        // Construct the file path (vulnerable to path traversal)
+        // Construct the file path                                                                                                                                                                                       (vulnerable to path traversal)
         Path filePath = Paths.get(System.getProperty("user.dir"), filename);
 
         File file = filePath.toFile();
@@ -29,3 +29,70 @@ public class FileDownloadController {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+.....................................................................................................................................................................................................
+
+
+
+How is it Vulnerable?
+
+This Java implementation suffers from the path traversal vulnerability due to the following issues:
+
+    Direct Use of User Input:
+        The filename parameter is directly used to construct the file path (Paths.get(System.getProperty("user.dir"), filename)).
+
+    Path Traversal Exploitation:
+        An attacker can supply input like ../../../../etc/passwd or ..\..\..\..\windows\system32\config\sam to navigate out of the intended directory and access sensitive files on the server.
+
+    File Access Without Validation:
+        The code only checks whether the file exists but doesn’t validate whether the file is within an allowed directory.
+
+    Potential Disclosure of Sensitive Files:
+        If a sensitive file (e.g., configuration files or OS-level files) exists and is accessible, it could be exposed to attackers.
+
+Exploitation Example
+
+If an attacker sends the following request:
+
+GET /download?filename=../../../../etc/passwd
+
+    On UNIX-based systems, the file path would resolve to /etc/passwd, allowing an attacker to download it if the server process has access.
+
+Similarly:
+
+GET /download?filename=..\..\..\..\windows\system32\config\sam
+
+    On Windows, the file path could resolve to sensitive system files.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
