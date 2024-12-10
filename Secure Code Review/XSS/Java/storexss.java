@@ -30,7 +30,7 @@ public class VulnerableStoredXSSServlet extends HttpServlet {
 
         // Display stored comments without escaping user input
         for (String comment : comments) {
-            out.println("<li>" + comment + "</li>"); // Vulnerable to stored XSS
+            out.println("<li>" + comment + "</li>");                                                                                                         // Vulnerable to stored XSS
         }
 
         out.println("</ul>");
