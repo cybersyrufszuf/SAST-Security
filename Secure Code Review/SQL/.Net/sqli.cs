@@ -96,7 +96,7 @@ class VulnerableLoginApp
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 .....................................................................................................................................................................................................
 
-How can this be exploited?
+How this snipped code can be exploited to Sql Injection?
 
 An attacker can craft malicious input to manipulate the query and bypass authentication or access unauthorized data.
 Example 1: Bypassing Authentication
