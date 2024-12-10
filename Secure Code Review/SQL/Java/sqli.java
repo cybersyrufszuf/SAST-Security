@@ -56,3 +56,105 @@ public class VulnerableLoginApp {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+..............................................................................................................................................................
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+How it could be Exploitation
+
+Suppose the attacker enters the following:
+
+    username: admin' --
+    password: (left empty)
+
+The SQL query becomes:
+
+SELECT * FROM users WHERE username = 'admin' --' AND password = ''
+
+    The -- is a SQL comment operator, which causes the rest of the query to be ignored.
+    This effectively changes the query to:
+
+    SELECT * FROM users WHERE username = 'admin'
+
+    The attacker is authenticated as the admin user without needing the password.
+
+Further Exploitation Risks
+
+    Data Extraction:
+        An attacker could craft inputs to extract sensitive data. For example:
+            Input: username = ' OR '1'='1 and password = ' OR '1'='1.
+            Query becomes:
+
+        SELECT * FROM users WHERE username = '' OR '1'='1' AND password = '' OR '1'='1'
+
+        This retrieves all rows from the users table.
+
+Database Manipulation:
+
+    An attacker could modify the database using injected SQL commands. For example:
+        Input: username = admin'; DROP TABLE users; -- and password = anything.
+        Query becomes:
+
+        SELECT * FROM users WHERE username = 'admin'; DROP TABLE users; --' AND password = 'anything'
+
+        This executes two commands: a valid query followed by dropping the users table.
+
+Database Compromise:
+
+    Attackers can potentially execute commands to retrieve all data, delete records, or even escalate access depending on the database configuration.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
