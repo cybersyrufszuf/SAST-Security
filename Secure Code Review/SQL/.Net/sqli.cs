@@ -45,8 +45,7 @@ class VulnerableLoginApp
         string username = Console.ReadLine();
         Console.Write("Enter password: ");
         string password = Console.ReadLine();
-
-        // Vulnerable SQL query concatenating user input directly
+                                                                                                                                           // Vulnerable SQL query concatenating user input directly
         string query = $"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'";
 
         Console.WriteLine("Executing query: " + query);
@@ -71,3 +70,138 @@ class VulnerableLoginApp
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+.....................................................................................................................................................................................................
+
+How can this be exploited?
+
+An attacker can craft malicious input to manipulate the query and bypass authentication or access unauthorized data.
+Example 1: Bypassing Authentication
+
+If an attacker provides the following input:
+
+    Username: ' OR '1'='1
+    Password: anything
+
+The resulting query would look like this:
+
+SELECT * FROM users WHERE username = '' OR '1'='1' AND password = 'anything';
+
+    Breakdown:
+        username = '' always evaluates as false.
+        '1'='1' always evaluates as true.
+        Since the OR condition makes the entire WHERE clause true, the query returns the first user from the users table, logging in the attacker as the admin without knowing the actual password.
+
+Example 2: Accessing Data
+
+An attacker can craft inputs to extract or modify data. For example:
+
+    Username: ' UNION SELECT NULL, sqlite_version(), NULL --
+    Password: anything
+
+The query would become:
+
+SELECT * FROM users WHERE username = '' UNION SELECT NULL, sqlite_version(), NULL -- AND password = 'anything';
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
