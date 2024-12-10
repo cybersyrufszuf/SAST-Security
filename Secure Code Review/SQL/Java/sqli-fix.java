@@ -54,3 +54,98 @@ public class SecureLoginApp {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Why is this Fixed Code Secure?
+
+    Parameterized Query:
+        The PreparedStatement binds user inputs as parameters. These parameters are treated as literal values, not executable SQL code, preventing SQL injection.
+
+    No Direct Concatenation:
+        The query uses ? placeholders, eliminating the need to concatenate user input.
+
+    Safe Query Execution:
+        Any malicious SQL input (e.g., admin' --) is treated as a plain string, preventing it from altering the query logic.
+
+Example of Fixed Code Behavior
+
+For the same malicious input:
+
+    username = admin' --
+    password = (empty)
+
+The query executed becomes:
+
+SELECT * FROM users WHERE username = 'admin'' --' AND password = ''
+
+Here, the injected SQL (--) is escaped and treated as part of the username value, making it harmless.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
