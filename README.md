@@ -17,10 +17,12 @@ The repository is structured by language and vulnerability category:
 |   |-- .Net
 |   |-- Java
 |   |-- Python
+
 |-- XSS
 |   |-- .Net
 |   |-- Java
 |   |-- Python
+
 |-- SSRF
     |-- .Net
     |-- Java
@@ -126,7 +128,7 @@ Below is an example structure for the documentation:
 
 Vulnerability: SQL Injection in Python
 
-Vulnerable Code:
+# Vulnerable Code:
 
 import sqlite3
 
@@ -136,7 +138,7 @@ cursor = connection.cursor()
 username = input("Enter username: ")
 password = input("Enter password: ")
 
-# Vulnerable query
+// Vulnerable query
 query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
 cursor.execute(query)
 
@@ -161,7 +163,7 @@ cursor = connection.cursor()
 username = input("Enter username: ")
 password = input("Enter password: ")
 
-# Secure query with parameterized input
+// Secure query with parameterized input
 query = "SELECT * FROM users WHERE username = ? AND password = ?"
 cursor.execute(query, (username, password))
 
