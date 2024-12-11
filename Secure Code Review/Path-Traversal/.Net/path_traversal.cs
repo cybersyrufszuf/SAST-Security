@@ -10,7 +10,7 @@ namespace FileDownloadApp.Controllers
         [HttpGet("download")]
         public IActionResult DownloadFile([FromQuery] string filename)
         {
-            // Get the file path from the current directory (potentially vulnerable to path traversal)
+                                                                                                                                                     // Get the file path from the current directory (potentially vulnerable to path traversal)
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), filename);
 
             // Check if the file exists and return it
